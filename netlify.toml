@@ -1,0 +1,17 @@
+[build]
+  publish = "_site"
+  command = "npm run build"
+
+[build.environment]
+  NODE_VERSION = "22"
+
+[[redirects]]
+  from = "/admin"
+  to = "/admin/index.html"
+  status = 200
+
+# Clean URLs - remove .html from post links
+[[redirects]]
+  from = "/*/"
+  to = "/:splat/index.html"
+  status = 200

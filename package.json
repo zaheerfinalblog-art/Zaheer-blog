@@ -1,0 +1,13 @@
+{
+  "name": "travel-with-zaaheer",
+  "version": "1.0.0",
+  "description": "Elegant travel blog by Zaheer — powered by Eleventy and Decap CMS",
+  "scripts": {
+    "build": "npx @11ty/eleventy",
+    "start": "npx @11ty/eleventy --serve",
+    "dev": "npx @11ty/eleventy --serve"
+  },
+  "dependencies": {
+    "@11ty/eleventy": "^3.0.0"
+  }
+}
