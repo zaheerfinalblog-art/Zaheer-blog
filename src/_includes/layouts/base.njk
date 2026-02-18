@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#1a1714" />
+
+  <title>{% if title %}{{ title }} — {% endif %}Travel With Zaheer</title>
+  <meta name="description" content="{% if description %}{{ description }}{% else %}A curated travel journal — exploring the world's most beautiful places through photography and storytelling.{% endif %}" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="{% if title %}{{ title }}{% else %}Travel With Zaheer{% endif %}" />
+  <meta property="og:description" content="{% if description %}{{ description }}{% else %}A curated travel journal by Zaheer.{% endif %}" />
+  {% if cover_image %}<meta property="og:image" content="{{ cover_image }}" />{% endif %}
+  <meta property="og:type" content="{% if layout == 'post' %}article{% else %}website{% endif %}" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="/css/style.css" />
+
+  <!-- Netlify Identity (for CMS login) -->
+  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+</head>
+<body>
+
+  {% include "partials/nav.njk" %}
+
+  <main id="main">
+    {{ content | safe }}
+  </main>
+
+  {% include "partials/footer.njk" %}
+
+  <!-- Netlify Identity redirect -->
+  <script>
+    if (window.netlifyIdentity) {
+      window.netlifyIdentity.on("init", user => {
+        if (!user) {
+          window.netlifyIdentity.on("login", () => {
+            document.location.href = "/admin/";
+          });
+        }
+      });
+    }
+  </script>
+
+</body>
+</html>
