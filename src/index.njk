@@ -1,0 +1,153 @@
+---
+layout: layouts/base.njk
+title: "Home"
+description: "A curated travel journal — exploring the world's most beautiful places through photography and storytelling."
+---
+
+<!-- ═══════════════════════════════════════ HERO -->
+<section class="hero">
+  <div class="hero__media">
+    <img
+      src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1800&q=85&auto=format"
+      alt="Majestic mountain landscape reflecting in a lake at golden hour"
+      class="hero__img"
+      loading="eager"
+      fetchpriority="high"
+    />
+  </div>
+  <div class="hero__overlay"></div>
+  <div class="hero__content">
+    <p class="hero__eyebrow">A Journey Begins</p>
+    <h1 class="hero__title">The World is a<br /><em>Beautiful Place.</em></h1>
+    <p class="hero__sub">Exploring it, one frame at a time.</p>
+    <a href="/journal/" class="btn btn--ghost">Read the Journal</a>
+  </div>
+  <p class="hero__scroll" aria-hidden="true">Scroll ↓</p>
+</section>
+
+<!-- ═══════════════════════════════════════ INTRO -->
+<section class="intro">
+  <div class="intro__inner">
+    <p class="intro__text">
+      From ancient cities to untouched wilderness — every journey tells a story worth sharing. Welcome to my corner of the world.
+    </p>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ LATEST POSTS FROM CMS -->
+{% set posts = collections.journal %}
+{% if posts.length > 0 %}
+<section class="section latest-posts">
+  <div class="section__inner">
+    <div class="section__header">
+      <h2 class="section__title">Latest Adventures</h2>
+      <a href="/journal/" class="section__link">View all →</a>
+    </div>
+
+    <div class="cards-grid">
+
+      {# First post gets a wide hero card #}
+      {% if posts[0] %}
+      {% set p = posts[0] %}
+      <a href="{{ p.url }}" class="card card--hero">
+        {% if p.data.cover_image %}
+        <div class="card__media">
+          <img src="{{ p.data.cover_image }}" alt="{{ p.data.cover_image_alt if p.data.cover_image_alt else p.data.title }}" loading="lazy" />
+        </div>
+        {% endif %}
+        <div class="card__body card__body--overlay">
+          {% if p.data.region %}<span class="card__region">{{ p.data.region }}</span>{% endif %}
+          <h3 class="card__title">{{ p.data.title }}</h3>
+          {% if p.data.excerpt %}<p class="card__excerpt">{{ p.data.excerpt }}</p>{% endif %}
+        </div>
+      </a>
+      {% endif %}
+
+      {# Remaining posts in normal cards #}
+      {% for p in posts | limit(5) %}
+      {% if loop.index > 1 %}
+      <a href="{{ p.url }}" class="card">
+        {% if p.data.cover_image %}
+        <div class="card__media">
+          <img src="{{ p.data.cover_image }}" alt="{{ p.data.cover_image_alt if p.data.cover_image_alt else p.data.title }}" loading="lazy" />
+        </div>
+        {% endif %}
+        <div class="card__body">
+          {% if p.data.region %}<span class="card__region">{{ p.data.region }}</span>{% endif %}
+          <h3 class="card__title">{{ p.data.title }}</h3>
+        </div>
+      </a>
+      {% endif %}
+      {% endfor %}
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ PLACEHOLDER GALLERY if no posts yet -->
+{% else %}
+<section class="section latest-posts">
+  <div class="section__inner">
+    <div class="section__header">
+      <h2 class="section__title">Latest Adventures</h2>
+      <a href="/journal/" class="section__link">View all →</a>
+    </div>
+
+    <div class="cards-grid">
+      <a href="/journal/" class="card card--hero">
+        <div class="card__media">
+          <img src="https://images.unsplash.com/photo-1528360983277-13d401cdc186?w=1200&q=80&auto=format" alt="Istanbul skyline at sunset" loading="lazy" />
+        </div>
+        <div class="card__body card__body--overlay">
+          <span class="card__region">Turkey · June 2024</span>
+          <h3 class="card__title">Where East Meets West</h3>
+          <p class="card__excerpt">A city straddling two continents, alive with the call to prayer and the scent of spice markets.</p>
+        </div>
+      </a>
+      <a href="/journal/" class="card">
+        <div class="card__media">
+          <img src="https://images.unsplash.com/photo-1542051841857-5f90071e7989?w=800&q=80&auto=format" alt="Tokyo neon streets at night" loading="lazy" />
+        </div>
+        <div class="card__body">
+          <span class="card__region">Japan</span>
+          <h3 class="card__title">Tokyo After Dark</h3>
+        </div>
+      </a>
+      <a href="/journal/" class="card">
+        <div class="card__media">
+          <img src="https://images.unsplash.com/photo-1539650116574-75c0c6d73f6e?w=800&q=80&auto=format" alt="Santorini white buildings and blue domes" loading="lazy" />
+        </div>
+        <div class="card__body">
+          <span class="card__region">Greece</span>
+          <h3 class="card__title">Santorini in Blue</h3>
+        </div>
+      </a>
+      <a href="/journal/" class="card">
+        <div class="card__media">
+          <img src="https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=800&q=80&auto=format" alt="Swiss Alps snow-capped peaks" loading="lazy" />
+        </div>
+        <div class="card__body">
+          <span class="card__region">Switzerland</span>
+          <h3 class="card__title">Above the Clouds</h3>
+        </div>
+      </a>
+      <a href="/journal/" class="card">
+        <div class="card__media">
+          <img src="https://images.unsplash.com/photo-1517760444937-f6397edcbbcd?w=800&q=80&auto=format" alt="Desert dunes at sunset in Morocco" loading="lazy" />
+        </div>
+        <div class="card__body">
+          <span class="card__region">Morocco</span>
+          <h3 class="card__title">Sahara at Dusk</h3>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+{% endif %}
+
+<!-- ═══════════════════════════════════════ PULL QUOTE -->
+<section class="pullquote">
+  <blockquote class="pullquote__text">
+    "Travel is the only thing you buy that makes you richer."
+  </blockquote>
+</section>

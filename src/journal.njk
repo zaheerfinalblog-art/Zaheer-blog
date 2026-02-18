@@ -1,0 +1,110 @@
+---
+layout: layouts/base.njk
+title: "Journal"
+description: "Travel stories, photography and adventures from around the world by Zaheer."
+permalink: /journal/index.html
+---
+
+<!-- PAGE HERO -->
+<div class="page-hero">
+  <div class="page-hero__media">
+    <img
+      src="https://images.unsplash.com/photo-1488085061387-422e29b40080?w=1800&q=85&auto=format"
+      alt="Aerial view of winding road through mountains"
+      loading="eager"
+      fetchpriority="high"
+    />
+  </div>
+  <div class="page-hero__overlay"></div>
+  <div class="page-hero__content">
+    <h1 class="page-hero__title">The Journal</h1>
+    <p class="page-hero__sub">Stories, photographs &amp; places.</p>
+  </div>
+</div>
+
+<!-- JOURNAL LISTING -->
+<section class="journal-section">
+  <div class="journal-section__inner">
+
+    {% set posts = collections.journal %}
+
+    {% if posts.length > 0 %}
+
+      <div class="journal-grid">
+        {% for post in posts %}
+        <a href="{{ post.url }}" class="journal-card">
+          {% if post.data.cover_image %}
+          <div class="journal-card__media">
+            <img
+              src="{{ post.data.cover_image }}"
+              alt="{{ post.data.cover_image_alt if post.data.cover_image_alt else post.data.title }}"
+              loading="lazy"
+            />
+          </div>
+          {% else %}
+          <div class="journal-card__media journal-card__media--placeholder">
+            <span>No image</span>
+          </div>
+          {% endif %}
+          <div class="journal-card__body">
+            <div class="journal-card__meta">
+              {% if post.data.region %}<span class="card__region">{{ post.data.region }}</span>{% endif %}
+              <time class="journal-card__date" datetime="{{ post.date | htmlDateString }}">{{ post.date | readableDate }}</time>
+            </div>
+            <h2 class="journal-card__title">{{ post.data.title }}</h2>
+            {% if post.data.excerpt %}
+            <p class="journal-card__excerpt">{{ post.data.excerpt }}</p>
+            {% endif %}
+            <span class="journal-card__cta">Read story →</span>
+          </div>
+        </a>
+        {% endfor %}
+      </div>
+
+    {% else %}
+
+      <!-- Empty state: shown before any posts are created in CMS -->
+      <div class="empty-state">
+        <p class="empty-state__icon">✈</p>
+        <h2 class="empty-state__heading">Stories coming soon.</h2>
+        <p class="empty-state__text">New adventures are being written. Check back shortly — or <a href="/admin/">add the first post</a>.</p>
+      </div>
+
+      <!-- Placeholder cards so the page looks great before first real post -->
+      <div class="journal-grid journal-grid--placeholder">
+        <div class="journal-card journal-card--placeholder">
+          <div class="journal-card__media">
+            <img src="https://images.unsplash.com/photo-1528360983277-13d401cdc186?w=900&q=80&auto=format" alt="Istanbul" loading="lazy" />
+          </div>
+          <div class="journal-card__body">
+            <div class="journal-card__meta"><span class="card__region">Turkey · June 2024</span></div>
+            <h2 class="journal-card__title">Where East Meets West: Istanbul in 5 Days</h2>
+            <p class="journal-card__excerpt">A city straddling two continents, alive with the call to prayer and the scent of spice markets.</p>
+          </div>
+        </div>
+        <div class="journal-card journal-card--placeholder">
+          <div class="journal-card__media">
+            <img src="https://images.unsplash.com/photo-1542051841857-5f90071e7989?w=900&q=80&auto=format" alt="Tokyo" loading="lazy" />
+          </div>
+          <div class="journal-card__body">
+            <div class="journal-card__meta"><span class="card__region">Japan · April 2024</span></div>
+            <h2 class="journal-card__title">Tokyo After Dark</h2>
+            <p class="journal-card__excerpt">When the sun sets, Tokyo transforms. Neon reflections on rain-wet streets.</p>
+          </div>
+        </div>
+        <div class="journal-card journal-card--placeholder">
+          <div class="journal-card__media">
+            <img src="https://images.unsplash.com/photo-1517760444937-f6397edcbbcd?w=900&q=80&auto=format" alt="Sahara" loading="lazy" />
+          </div>
+          <div class="journal-card__body">
+            <div class="journal-card__meta"><span class="card__region">Morocco · January 2024</span></div>
+            <h2 class="journal-card__title">A Night Under the Stars in the Sahara</h2>
+            <p class="journal-card__excerpt">Riding into the dunes on camelback, watching the orange horizon fade to violet.</p>
+          </div>
+        </div>
+      </div>
+
+    {% endif %}
+
+  </div>
+</section>
